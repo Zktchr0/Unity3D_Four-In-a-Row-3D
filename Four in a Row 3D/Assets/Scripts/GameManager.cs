@@ -58,8 +58,8 @@ public class GameManager : MonoBehaviour {
     }
 
     void Update() {
-        // First - Marking the pole we're on (and updating it).
 
+        // First - Marking the pole we're on (and updating it).
         GameObject pole = GameObject.Find("Pole" + horizontal + vertical);
 
         pole.GetComponent<PoleScript>().Mark();
@@ -85,7 +85,6 @@ public class GameManager : MonoBehaviour {
         }
 
         // Enabling the restart option (will be done when the game is ended)
-
         if (restart)
         {
             if (Input.GetKeyDown(KeyCode.R))
@@ -123,7 +122,7 @@ public class GameManager : MonoBehaviour {
                 gameBoard[horizontal, piecesOnPole[horizontal, vertical] - 1, vertical] = -1;
             }
 
-            won = (IsWinning());
+            won = CheckWin(horizontal, piecesOnPole[horizontal, vertical] - 1, vertical);   //using CheckWin with the last move
         }
 
         // Game end + message + restart enabled
@@ -146,79 +145,33 @@ public class GameManager : MonoBehaviour {
 
     }
 
-    // This should be done much better but it could've been worse (only a few cases are checked). I think that, at least, it's quite clear this way...
+    // A funtion that recieves a coordinate and checks if it's the winning move
 
-    private bool IsWinning()
+    private bool CheckWin(int x, int y, int z)
     {
-        int thisX = horizontal;
-        int thisY = piecesOnPole[horizontal, vertical] - 1;
-        int thisZ = vertical;
-
-        // checking current straight lines
-        if ((gameBoard[thisX, thisY, 0] != 0 &&
-            gameBoard[thisX, thisY, 0] == gameBoard[thisX, thisY, 1] &&
-            gameBoard[thisX, thisY, 1] == gameBoard[thisX, thisY, 2] &&
-            gameBoard[thisX, thisY, 2] == gameBoard[thisX, thisY, 3]) ||
-            (gameBoard[thisX, 0, thisZ] != 0 &&
-            gameBoard[thisX, 0, thisZ] == gameBoard[thisX, 1, thisZ] &&
-            gameBoard[thisX, 1, thisZ] == gameBoard[thisX, 2, thisZ] &&
-            gameBoard[thisX, 2, thisZ] == gameBoard[thisX, 3, thisZ]) ||
-            (gameBoard[0, thisY, thisZ] != 0 &&
-            gameBoard[0, thisY, thisZ] == gameBoard[1, thisY, thisZ] &&
-            gameBoard[1, thisY, thisZ] == gameBoard[2, thisY, thisZ] &&
-            gameBoard[2, thisY, thisZ] == gameBoard[3, thisY, thisZ]) ||
-        // checking diagonals on each layer the piece is on
-            (gameBoard[thisX, 0, 0] != 0 &&
-            gameBoard[thisX, 0, 0] == gameBoard[thisX, 1, 1] &&
-            gameBoard[thisX, 1, 1] == gameBoard[thisX, 2, 2] &&
-            gameBoard[thisX, 2, 2] == gameBoard[thisX, 3, 3]) ||
-            (gameBoard[thisX, 3, 0] != 0 &&
-            gameBoard[thisX, 3, 0] == gameBoard[thisX, 2, 1] &&
-            gameBoard[thisX, 2, 1] == gameBoard[thisX, 1, 2] &&
-            gameBoard[thisX, 1, 2] == gameBoard[thisX, 0, 3]) ||
-            (gameBoard[0, thisY, 0] != 0 &&
-            gameBoard[0, thisY, 0] == gameBoard[1, thisY, 1] &&
-            gameBoard[1, thisY, 1] == gameBoard[2, thisY, 2] &&
-            gameBoard[2, thisY, 2] == gameBoard[3, thisY, 3]) ||
-            (gameBoard[0, thisY, 3] != 0 &&
-            gameBoard[0, thisY, 3] == gameBoard[1, thisY, 2] &&
-            gameBoard[1, thisY, 2] == gameBoard[2, thisY, 1] &&
-            gameBoard[2, thisY, 1] == gameBoard[3, thisY, 0]) ||
-            (gameBoard[0, 0, thisZ] != 0 &&
-            gameBoard[0, 0, thisZ] == gameBoard[1, 1, thisZ] &&
-            gameBoard[1, 1, thisZ] == gameBoard[2, 2, thisZ] &&
-            gameBoard[2, 2, thisZ] == gameBoard[3, 3, thisZ]) ||
-            (gameBoard[0, 3, thisZ] != 0 &&
-            gameBoard[0, 3, thisZ] == gameBoard[1, 2, thisZ] &&
-            gameBoard[1, 2, thisZ] == gameBoard[2, 1, thisZ] &&
-            gameBoard[2, 1, thisZ] == gameBoard[3, 0, thisZ]) ||
-        // checking the all-layer-crossing diagonals
-            (gameBoard[0, 0, 0] != 0 && 
-            gameBoard[0, 0, 0] == gameBoard[1, 1, 1] &&
-            gameBoard[1, 1, 1] == gameBoard[2, 2, 2] &&
-            gameBoard[2, 2, 2] == gameBoard[3, 3, 3]) ||
-            (gameBoard[0, 0, 3] != 0 &&
-            gameBoard[0, 0, 3] == gameBoard[1, 1, 2] &&
-            gameBoard[1, 1, 2] == gameBoard[2, 2, 1] &&
-            gameBoard[2, 2, 1] == gameBoard[3, 3, 0]) ||
-            (gameBoard[0, 3, 3] != 0 &&
-            gameBoard[0, 3, 3] == gameBoard[1, 2, 2] &&
-            gameBoard[1, 2, 2] == gameBoard[2, 1, 1] &&
-            gameBoard[2, 1, 1] == gameBoard[3, 0, 0]) ||
-            (gameBoard[0, 3, 0] != 0 &&
-            gameBoard[0, 3, 0] == gameBoard[1, 2, 1] &&
-            gameBoard[1, 2, 1] == gameBoard[2, 1, 2] &&
-            gameBoard[2, 1, 2] == gameBoard[3, 0, 3]) ||
-            (gameBoard[3, 3, 0] != 0 &&
-            gameBoard[3, 3, 0] == gameBoard[2, 2, 1] &&
-            gameBoard[2, 2, 1] == gameBoard[1, 1, 2] &&
-            gameBoard[1, 1, 2] == gameBoard[0, 0, 3]) ||
-            (gameBoard[3, 0, 0] != 0 &&
-            gameBoard[3, 0, 0] == gameBoard[2, 1, 1] &&
-            gameBoard[2, 1, 1] == gameBoard[1, 2, 2] &&
-            gameBoard[1, 2, 2] == gameBoard[0, 3, 3])
-            )
-            return true;
+        int[] sums = new int[13];               // since a move is either 1 or -1, we'll sum each line and if we reach 4 or -4 it's a win
+        for (int i = 0; i < size; i++)
+        {
+            int j = size - 1 - i;               // j is for going backwards
+            sums[0] += gameBoard[x, y, i];      // checking only relevant straight lines
+            sums[1] += gameBoard[x, i, z];
+            sums[2] += gameBoard[i, y, z];
+            sums[3] += gameBoard[x, i, i];      // checking diagonals on each relevant layer the piece is on
+            sums[4] += gameBoard[i, y, i];
+            sums[5] += gameBoard[i, i, z];
+            sums[6] += gameBoard[x, i, j];
+            sums[7] += gameBoard[i, y, j];
+            sums[8] += gameBoard[i, j, z];
+            sums[9] += gameBoard[i, i, i];      // checking the all-layer-crossing diagonals
+            sums[10] += gameBoard[i, i, j];
+            sums[11] += gameBoard[i, j, i];
+            sums[12] += gameBoard[j, i, i];
+        }
+        foreach (int s in sums)
+        {
+            if (s == 4 || s == -4)
+                return true;
+        }
         return false;
     }
 

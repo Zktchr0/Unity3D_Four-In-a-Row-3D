@@ -5,22 +5,19 @@ using UnityEngine;
 public class PoleScript : MonoBehaviour {
 
     public Color natural;
-    public Color marker;
-
     private Renderer poleRend;
 
     void Start () {
         poleRend = GetComponent<Renderer>();
 	}
 	
-    public void Mark()
+    public void Mark(Color playerColor)
     {
-        poleRend.material.color = marker;
+        poleRend.material.color = playerColor;
     }
 
     public void Unmark()
     {
         poleRend.material.color = natural;
-
     }
 }

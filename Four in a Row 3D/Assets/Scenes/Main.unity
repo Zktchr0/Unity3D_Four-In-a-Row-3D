@@ -213,7 +213,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   natural: {r: 1, g: 1, b: 1, a: 0}
-  marker: {r: 0.3254717, g: 1, b: 0.91270816, a: 0}
 --- !u!1 &91487975
 GameObject:
   m_ObjectHideFlags: 0
@@ -244,8 +243,8 @@ MonoBehaviour:
   piece: {fileID: 1098715451876810, guid: 3eb91995f168ef941ae728463788f198, type: 2}
   dropDelay: 0.3
   messageText: {fileID: 1196292212}
-  playerOneColor: {r: 0.29411766, g: 1, b: 1, a: 0}
-  playerTwoColor: {r: 1, g: 0.5613208, b: 0.88235295, a: 0}
+  playerOneColor: {r: 0.8962264, g: 0.8018784, b: 0.6468049, a: 0}
+  playerTwoColor: {r: 0.39215687, g: 0.23529412, b: 0.19607843, a: 0}
 --- !u!4 &91487977
 Transform:
   m_ObjectHideFlags: 0
@@ -423,7 +422,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   natural: {r: 1, g: 1, b: 1, a: 0}
-  marker: {r: 0.3254717, g: 1, b: 0.91270816, a: 0}
 --- !u!1 &282840810
 GameObject:
   m_ObjectHideFlags: 0
@@ -596,7 +594,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   natural: {r: 1, g: 1, b: 1, a: 0}
-  marker: {r: 0.3254717, g: 1, b: 0.91270816, a: 0}
 --- !u!1 &443850450
 GameObject:
   m_ObjectHideFlags: 0
@@ -725,8 +722,9 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1196292211}
+  - {fileID: 587510657}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -832,7 +830,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   natural: {r: 1, g: 1, b: 1, a: 0}
-  marker: {r: 0.3254717, g: 1, b: 0.91270816, a: 0}
 --- !u!1 &587510654
 GameObject:
   m_ObjectHideFlags: 0
@@ -888,12 +885,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 587510654}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -358, y: -215.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_Father: {fileID: 483884421}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &769958429
 GameObject:
@@ -994,7 +991,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   natural: {r: 1, g: 1, b: 1, a: 0}
-  marker: {r: 0.3254717, g: 1, b: 0.91270816, a: 0}
 --- !u!1 &865525706
 GameObject:
   m_ObjectHideFlags: 0
@@ -1094,7 +1090,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   natural: {r: 1, g: 1, b: 1, a: 0}
-  marker: {r: 0.3254717, g: 1, b: 0.91270816, a: 0}
 --- !u!1 &1050833716
 GameObject:
   m_ObjectHideFlags: 0
@@ -1194,7 +1189,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   natural: {r: 1, g: 1, b: 1, a: 0}
-  marker: {r: 0.3254717, g: 1, b: 0.91270816, a: 0}
 --- !u!1 &1196292210
 GameObject:
   m_ObjectHideFlags: 0
@@ -1385,7 +1379,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   natural: {r: 1, g: 1, b: 1, a: 0}
-  marker: {r: 0.3254717, g: 1, b: 0.91270816, a: 0}
 --- !u!1 &1324241232
 GameObject:
   m_ObjectHideFlags: 0
@@ -1588,7 +1581,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   natural: {r: 1, g: 1, b: 1, a: 0}
-  marker: {r: 0.3254717, g: 1, b: 0.91270816, a: 0}
 --- !u!1 &1706201121
 GameObject:
   m_ObjectHideFlags: 0
@@ -1688,7 +1680,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   natural: {r: 1, g: 1, b: 1, a: 0}
-  marker: {r: 0.3254717, g: 1, b: 0.91270816, a: 0}
 --- !u!1 &1737431127
 GameObject:
   m_ObjectHideFlags: 0
@@ -1788,7 +1779,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   natural: {r: 1, g: 1, b: 1, a: 0}
-  marker: {r: 0.3254717, g: 1, b: 0.91270816, a: 0}
 --- !u!1 &1757741510
 GameObject:
   m_ObjectHideFlags: 0
@@ -1888,7 +1878,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   natural: {r: 1, g: 1, b: 1, a: 0}
-  marker: {r: 0.3254717, g: 1, b: 0.91270816, a: 0}
 --- !u!1 &1836012871
 GameObject:
   m_ObjectHideFlags: 0
@@ -1988,7 +1977,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   natural: {r: 1, g: 1, b: 1, a: 0}
-  marker: {r: 0.3254717, g: 1, b: 0.91270816, a: 0}
 --- !u!1 &1920600222
 GameObject:
   m_ObjectHideFlags: 0
@@ -2088,7 +2076,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   natural: {r: 1, g: 1, b: 1, a: 0}
-  marker: {r: 0.3254717, g: 1, b: 0.91270816, a: 0}
 --- !u!1 &2006442281
 GameObject:
   m_ObjectHideFlags: 0
@@ -2188,7 +2175,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   natural: {r: 1, g: 1, b: 1, a: 0}
-  marker: {r: 0.3254717, g: 1, b: 0.91270816, a: 0}
 --- !u!1 &2096191561
 GameObject:
   m_ObjectHideFlags: 0
@@ -2288,4 +2274,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   natural: {r: 1, g: 1, b: 1, a: 0}
-  marker: {r: 0.3254717, g: 1, b: 0.91270816, a: 0}

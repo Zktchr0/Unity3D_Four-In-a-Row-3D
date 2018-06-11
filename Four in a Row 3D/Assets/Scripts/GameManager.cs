@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour {
 
     public GameObject piece;        // The game pieces prefab
     public static int size = 4;     // Size of the (cubic) board
-    public float dropDelay = 0.2f;  // So that pieces won't tumble into each other
+    public float dropDelay = 0.25f;  // So that pieces won't tumble into each other
 
     public Text messageText;        // Used for game over messages
 
@@ -17,44 +17,22 @@ public class GameManager : MonoBehaviour {
     private Color currentColor;     // For keeping track and finding the winner
 
 
-    private GameObject pole;                                // The pole - will be searched by name ("pole" + coordinates)
-    private Vector3 pieceVecOffset;                         // The offset between piece and pole
-    private int[,] piecesOnPole = new int[size,size];       // Counting the pieces on each pole (limited to 4)
-    private int[,,] gameBoard = new int[size, size, size];  // 3D array for keeping track of the whole board
+    private GameObject pole;                                            // The pole - will be searched by name ("pole" + coordinates)
+    private Vector3 pieceVecOffset = new Vector3(0.08f, 1.8f, -0.3f);   // The offset between piece and pole
+    private int[,] piecesOnPole = new int[size,size];                   // 2D array of 0's Counting the pieces on each pole (limited to 4)
+    private int[,,] gameBoard = new int[size, size, size];              // 3D array of 0's for keeping track of the whole board
 
     private int sum;            // Sum of the number of pieces, to be able to tell if the board is full
     private int horizontal;     // x input
     private int vertical;       // z input
     private float nextDrop;     // time between dropping pieces
-    private bool won;           
+    private bool won = false;   
     private bool restart;
 
     void Start () {
+        currentColor = playerOneColor;
         pieceVecOffset = new Vector3(0.08f, 1.8f, -0.3f);
-
-        // initializing the arrays with zeros
-        for (int i = 0; i < size; i++)
-            {
-                for (int j = 0; j < size; j++)
-                {
-                    piecesOnPole[i,j] = 0;
-                }
-            }
-
-        for (int xAxis = 0; xAxis < size; xAxis++)
-        {
-            for (int yAxis = 0; yAxis < size; yAxis++)
-            {
-                for (int zAxis = 0; zAxis < size; zAxis++)
-                {
-                    gameBoard[xAxis, yAxis, zAxis] = 0;
-                }
-            }
-        }
-        
         messageText.text = string.Empty;
-        won = false;
-        sum = 0;
     }
 
     void Update() {
@@ -62,7 +40,7 @@ public class GameManager : MonoBehaviour {
         // First - Marking the pole we're on (and updating it).
         GameObject pole = GameObject.Find("Pole" + horizontal + vertical);
 
-        pole.GetComponent<PoleScript>().Mark();
+        pole.GetComponent<PoleScript>().Mark(currentColor);
 
         // Getting new coordinates and keeping them in range
         int newHorizontal = horizontal + (int)(Input.GetAxisRaw("Horizontal"));
@@ -97,28 +75,33 @@ public class GameManager : MonoBehaviour {
     private void LateUpdate()   // For things that happen after the mark is in place and before it moves
     {   
         GameObject pole = GameObject.Find("Pole" + horizontal + vertical);
-
+        
         // Dropping the piece, updating the board, checking for a win, changing the color of the next piece
 
         if (Input.GetButton("Jump") && Time.time > nextDrop && piecesOnPole[horizontal, vertical] < 4 && !won)
         {
+            // changing the marker color
+
+            if (currentColor != playerOneColor)
+                currentColor = playerOneColor;
+            else
+                currentColor = playerTwoColor;
+
             nextDrop = Time.time + dropDelay;       // Otherwise it will just "flow" out and make a mess
             piecesOnPole[horizontal, vertical]++;
             sum++;
 
-            // creating and picking the color of the piece + updating the board (player one = 1, player two = -1)
+            // creating the piece and setting its color + updating the board (player one = 1, player two = -1)
 
             GameObject newPiece = Instantiate(piece, pole.GetComponent<Transform>().position + pieceVecOffset, Quaternion.Euler(90f, 0f, 0f));
             if (currentColor != playerOneColor)
             {
                 newPiece.GetComponent<Renderer>().material.color = playerOneColor;
-                currentColor = playerOneColor;
                 gameBoard[horizontal, piecesOnPole[horizontal, vertical] - 1, vertical] = 1;
             }
             else
             {
                 newPiece.GetComponent<Renderer>().material.color = playerTwoColor;
-                currentColor = playerTwoColor;
                 gameBoard[horizontal, piecesOnPole[horizontal, vertical] - 1, vertical] = -1;
             }
 
@@ -130,7 +113,7 @@ public class GameManager : MonoBehaviour {
         if (won)
         {
             restart = true;
-            if (currentColor == playerOneColor)
+            if (currentColor != playerOneColor)     // Beacuase the color changed already
             {
                 messageText.text = "FOUR IN A ROW!\n PLAYER 1 WINS THE GAME!\n\n\n\npress R to restart";
             }

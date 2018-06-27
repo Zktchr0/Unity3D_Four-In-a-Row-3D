@@ -8,7 +8,8 @@ public class GameManager : MonoBehaviour {
 
     public GameObject piece;        // The game pieces prefab
     public static int size = 4;     // Size of the (cubic) board
-    public float dropDelay = 0.25f;  // So that pieces won't tumble into each other
+    public float dropDelay = 0.25f; // So that pieces won't tumble into each other
+    public float moveDelay = 0.3f;  // So that the marker will move one pole at a time
 
     public Text messageText;        // Used for game over messages
 
@@ -26,6 +27,7 @@ public class GameManager : MonoBehaviour {
     private int horizontal;     // x input
     private int vertical;       // z input
     private float nextDrop;     // time between dropping pieces
+    private bool previousFrameMovement = false;
     private bool won = false;   
     private bool restart;
 
@@ -37,30 +39,7 @@ public class GameManager : MonoBehaviour {
 
     void Update() {
 
-        // First - Marking the pole we're on (and updating it).
-        GameObject pole = GameObject.Find("Pole" + horizontal + vertical);
-
-        pole.GetComponent<PoleScript>().Mark(currentColor);
-
-        // Getting new coordinates and keeping them in range
-        int newHorizontal = horizontal + (int)(Input.GetAxisRaw("Horizontal"));
-        int newVertical = vertical + (int)(Input.GetAxisRaw("Vertical"));
-        if (newHorizontal < 0)
-            newHorizontal = 0;
-        if (newVertical < 0)
-            newVertical = 0;
-        if (newHorizontal > 3)
-            newHorizontal = 3;
-        if (newVertical > 3)
-            newVertical = 3;
-
-        // Unmarking the pole, if we left it
-        if (newHorizontal != horizontal || newVertical != vertical)
-        {
-            pole.GetComponent<PoleScript>().Unmark();
-            horizontal = newHorizontal;
-            vertical = newVertical;
-        }
+        Move((int)Input.GetAxisRaw("Horizontal"), (int)Input.GetAxisRaw("Vertical"));
 
         // Enabling the restart option (will be done when the game is ended)
         if (restart)
@@ -113,7 +92,7 @@ public class GameManager : MonoBehaviour {
         if (won)
         {
             restart = true;
-            if (currentColor != playerOneColor)     // Beacuase the color changed already
+            if (currentColor != playerOneColor)
             {
                 messageText.text = "FOUR IN A ROW!\n PLAYER 1 WINS THE GAME!\n\n\n\npress R to restart";
             }
@@ -127,6 +106,48 @@ public class GameManager : MonoBehaviour {
         }
 
     }
+
+    private void Move(int x, int y)
+    {
+        // First - Marking the pole we're on (and updating it).
+        GameObject pole = GameObject.Find("Pole" + horizontal + vertical);
+
+        if (!won)
+            pole.GetComponent<PoleScript>().Mark(currentColor);
+
+        if (x != 0||y != 0)
+        {
+            // moving only if we didn't move on the previous frame
+            if (!previousFrameMovement)
+            {
+                previousFrameMovement = true;
+
+                // Getting new coordinates and keeping them in range
+                int newHorizontal = EnforceBound(horizontal + x);
+                int newVertical = EnforceBound(vertical + y);
+
+                // Unmarking the pole, if we left it
+                if (newHorizontal != horizontal || newVertical != vertical)
+                {
+                    pole.GetComponent<PoleScript>().Unmark();
+                    horizontal = newHorizontal;
+                    vertical = newVertical;
+                }
+            }
+        }
+        else
+            previousFrameMovement = false;
+    }
+
+    private int EnforceBound(int axis)
+    {
+        if (axis < 0)
+            return 0;
+        else if (axis > 3)
+            return 3;
+        else return axis;
+    }
+
 
     // A funtion that recieves a coordinate and checks if it's the winning move
 

@@ -15,4 +15,7 @@ use ctrl and alt to move the camera around the board
 
 the purpose of the game is to get 4 in a row (as its name implies) - it can be in a row, a column or a diagonal line
 
+
+once the game ends you can still move the camera and marker, but no pieces may be dropped, plus restart is available
+
 enjoy!

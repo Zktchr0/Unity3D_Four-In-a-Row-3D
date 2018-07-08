@@ -242,6 +242,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   piece: {fileID: 1098715451876810, guid: 3eb91995f168ef941ae728463788f198, type: 2}
   dropDelay: 0.3
+  moveDelay: 0.3
   messageText: {fileID: 1196292212}
   playerOneColor: {r: 0.8962264, g: 0.8018784, b: 0.6468049, a: 0}
   playerTwoColor: {r: 0.39215687, g: 0.23529412, b: 0.19607843, a: 0}

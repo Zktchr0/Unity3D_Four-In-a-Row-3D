@@ -7,7 +7,7 @@ public class PoleScript : MonoBehaviour {
     public Color natural;
     private Renderer poleRend;
 
-    void Start () {
+    void Awake () {
         poleRend = GetComponent<Renderer>();
 	}
 	

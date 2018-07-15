@@ -108,6 +108,7 @@ public class GameManager : MonoBehaviour {
         newPiece.GetComponent<Renderer>().material.color = CurrentColor();
         gameBoard[horizontal, Tools.PiecesOnPole(horizontal, vertical, gameBoard), vertical] = CurrentPlayer();
         sum++;
+        pole.GetComponent<PoleScript>().Mark(CurrentColor());
     }
 
     Color CurrentColor()

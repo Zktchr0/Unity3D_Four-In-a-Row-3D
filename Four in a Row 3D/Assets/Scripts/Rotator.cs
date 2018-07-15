@@ -7,13 +7,10 @@ public class Rotator : MonoBehaviour {
     public float speed = 8f;
     private float turnInputValue;
 
-
     void Update () {
         turnInputValue = Input.GetAxis("Rotate");
+        float turn = turnInputValue * speed * Time.deltaTime;
+        transform.Rotate(0f, turn, 0f);
     }
 
-    void FixedUpdate () {
-        float turn = turnInputValue * speed * Time.deltaTime;
-            transform.Rotate(0f, turn, 0f);
-    }
 }
